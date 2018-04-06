@@ -93,7 +93,9 @@ myLayoutHook = windowNavigation (avoidStruts (myGaps (Tall 1 (3/100) (1/2))))
 
 
 -- Configure xmobar
-allPPs nScreens handles = sequence_ [dynamicLogWithPP $ marshallPP s $ myPP h | s <- [0..nScreens-1], h <- handles]
+allPPs nScreens handles = sequence_ [ dynamicLogWithPP $ marshallPP s $ myPP h
+                                    | s <- [0..nScreens-1], h <- handles
+                                    ]
 
 myPP h = xmobarPP { ppOutput = hPutStrLn h
                   , ppCurrent = xmobarColor colorOrange ""
