@@ -4,6 +4,7 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Circle
+import XMonad.Layout.Maximize (maximize)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.WindowNavigation
@@ -75,7 +76,7 @@ myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +
                ]
 
 
-myLayoutHook = windowNavigation (avoidStruts (myGaps (Tall 1 (3/100) (1/2))))
+myLayoutHook = maximize $ windowNavigation (avoidStruts (myGaps (Tall 1 (3/100) (1/2))))
                ||| Circle
                ||| Full
   where myGaps = lessBorders OnlyFloat . smartSpacing 7

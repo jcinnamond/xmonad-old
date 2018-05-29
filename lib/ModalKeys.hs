@@ -6,6 +6,7 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.Submap
+import XMonad.Layout.Maximize (maximizeRestore)
 import XMonad.Prompt (XPConfig, font, position, XPPosition(Top), height)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
@@ -79,6 +80,7 @@ modalKeys = do
     , ((0, xK_l), deleteWindow w >> nextWS)
     , ((0, xK_Return), deleteWindow w >> promote)
     , ((0, xK_f), deleteWindow w >> sendMessage NextLayout)
+    , ((0, xK_s), deleteWindow w >> withFocused (sendMessage . maximizeRestore))
     , ((0, xK_comma), deleteWindow w >> sendMessage (IncMasterN 1))
     , ((0, xK_period), deleteWindow w >> sendMessage (IncMasterN (-1)))
     , ((0, xK_c), deleteWindow w >> kill)
