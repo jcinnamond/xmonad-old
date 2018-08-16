@@ -78,7 +78,7 @@ myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +
 
 myLayoutHook = maximize $ windowNavigation (avoidStruts (myGaps (Tall 1 (3/100) (1/2))))
                ||| Circle
-  where myGaps = lessBorders OnlyFloat . smartSpacing 7
+  where myGaps = smartSpacing 7
 
 
 -- Configure xmobar
