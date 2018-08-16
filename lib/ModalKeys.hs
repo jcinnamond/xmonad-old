@@ -10,7 +10,7 @@ import XMonad.Layout.Maximize (maximizeRestore)
 import XMonad.Prompt (XPConfig, font, position, XPPosition(Top), height)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
-import XMonad.StackSet (current,screenDetail)
+import XMonad.StackSet (current,screenDetail,sink)
 import XMonad.Util.Font
 import XMonad.Util.XUtils
 
@@ -62,13 +62,16 @@ modalKeys = do
   w <- showGuideKeys [ "screen:         ⟵ [w]  [e] ⟶"
                      , "workspace:   ⟵ [j]  [l] ⟶"
                      , ""
-                     , "[f] change layout        [return] promote"
-                     , "[,] move to master      [.] remove from master"
-                     , "[c] kill current window"
+                     , "[f] change layout               [return] promote"
+                     , "[,] move to master             [.] remove from master"
+                     , "[s] maximize"
+                     , ""
+                     , "[c] kill current window       [j] unfloat current window"
                      , ""
                      , "[space] applications"
                      , ""
-                     , "[k] lock                        [q] restart"
+                     , "[k] lock                               [q] restart"
+                     , "[m] sort out monitors"
                      ]
 
   submapDefault (deleteWindow w) . M.fromList $
@@ -84,9 +87,11 @@ modalKeys = do
     , ((0, xK_comma), deleteWindow w >> sendMessage (IncMasterN 1))
     , ((0, xK_period), deleteWindow w >> sendMessage (IncMasterN (-1)))
     , ((0, xK_c), deleteWindow w >> kill)
+    , ((0, xK_j), deleteWindow w >> withFocused (windows . sink))
     , ((0, xK_space), deleteWindow w >> appKeys)
     , ((0, xK_p), deleteWindow w >> xmonadPrompt myXPConfig)
     , ((0, xK_k), deleteWindow w >> spawn "cinnamon-screensaver-command -l")
+    , ((0, xK_m), deleteWindow w >> spawn "~/bin/sort_out_monitors.sh")
     , ((0, xK_q), restart "xmonad" True)
     ]
 
