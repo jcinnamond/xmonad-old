@@ -91,7 +91,7 @@ modalKeys = do
     , ((0, xK_space), deleteWindow w >> appKeys)
     , ((0, xK_p), deleteWindow w >> xmonadPrompt myXPConfig)
     , ((0, xK_k), deleteWindow w >> spawn "cinnamon-screensaver-command -l")
-    , ((0, xK_m), deleteWindow w >> spawn "~/bin/sort_out_monitors.sh")
+    , ((0, xK_m), deleteWindow w >> monitorKeys)
     , ((0, xK_q), restart "xmonad" True)
     ]
 
@@ -107,6 +107,14 @@ appKeys = do
     , ((0, xK_e), deleteWindow w >> spawn "emacsclient -ca emacs")
     , ((0, xK_c), deleteWindow w >> spawn "code")
     , ((0, xK_w), deleteWindow w >> spawn "chromium")]
+
+monitorKeys :: X ()
+monitorKeys = do
+  w <- showGuideKeys [ "[m] single monitor   [f] mirror external   [j] mirror laptop" ]
+  submapDefault (deleteWindow w) . M.fromList $
+    [ ((0, xK_m), deleteWindow w >> spawn "~/bin/sort_out_monitors.sh")
+    , ((0, xK_f), deleteWindow w >> spawn "xrandr --output eDP-1 --auto --same-as DP-1 --scale-from 2560x1440")
+    , ((0, xK_j), deleteWindow w >> spawn "xrandr --output eDP-1 --auto")]
 
 myXPConfig :: XPConfig
 myXPConfig = def { font = "xft:Input Pro:pixelsize=30:autohint=true"
