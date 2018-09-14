@@ -7,7 +7,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.Submap
 import XMonad.Layout.Maximize (maximizeRestore)
-import XMonad.Prompt (XPConfig, font, position, XPPosition(Top), height)
+import XMonad.Prompt (XPConfig, font, position, XPPosition(Bottom), height)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
 import XMonad.StackSet (current,screenDetail,sink)
@@ -118,6 +118,6 @@ monitorKeys = do
 
 myXPConfig :: XPConfig
 myXPConfig = def { font = "xft:Input Pro:pixelsize=30:autohint=true"
-                 , position = Top
+                 , position = Bottom
                  , height = 50
                  }
