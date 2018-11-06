@@ -68,6 +68,8 @@ modalKeys = do
                      , ""
                      , "[c] kill current window       [j] unfloat current window"
                      , ""
+                     , "[l] screen capture"
+                     , ""
                      , "[space] applications"
                      , ""
                      , "[k] lock                               [q] restart"
@@ -88,6 +90,7 @@ modalKeys = do
     , ((0, xK_period), deleteWindow w >> sendMessage (IncMasterN (-1)))
     , ((0, xK_c), deleteWindow w >> kill)
     , ((0, xK_j), deleteWindow w >> withFocused (windows . sink))
+    , ((0, xK_l), deleteWindow w >> spawn "flameshot gui")
     , ((0, xK_space), deleteWindow w >> appKeys)
     , ((0, xK_p), deleteWindow w >> xmonadPrompt myXPConfig)
     , ((0, xK_k), deleteWindow w >> spawn "cinnamon-screensaver-command -l")
