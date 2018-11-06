@@ -8,9 +8,10 @@ Config {
      , pickBroadest = True
      , commands = [ Run Date "%A %_d %B %H:%M" "date" 60
 		  , Run StdinReader
+                  , Run Com "/bin/bash" ["-c", "~/bin/media.sh"] "media" 2
 		  , Run Com "/bin/bash" ["-c", "~/bin/getvolume.sh"] "vol" 1
-		  , Run Com "/bin/bash" ["-c", "~/bin/wifi.sh"] "wifi" 30
+		  , Run Com "/bin/bash" ["-c", "~/bin/wifi.sh"] "wifi" 15
 		  , Run Battery ["-t", "<acstatus>: <left>%", "--", "-O", "AC", "-o", "Battery", "-l", "red"] 10
                   ]
-     , template = " %StdinReader%}{%wifi% | %battery% | %vol% | %date% "
+     , template = " %StdinReader%}{%media% | %wifi% | %battery% | %vol% | %date% "
      }
