@@ -1,13 +1,13 @@
 {-# OPTIONS_GHC -fno-warn-type-defaults #-}
 
 import XMonad
+import XMonad.Actions.WindowNavigation
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Circle
 import XMonad.Layout.Maximize (maximize)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
-import XMonad.Layout.WindowNavigation
 import XMonad.Prompt
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig(additionalKeysP, removeKeysP, additionalKeys)
@@ -27,10 +27,12 @@ myPipe = spawnPipe (unwords ["xmobar"
 main :: IO ()
 main = do
   handle <- myPipe
-  xmonad $ myConfig handle
+  config <- withWindowNavigation (xK_i, xK_j, xK_k, xK_l) $ myConfig handle
+  xmonad config
 
-myConfig handle = docks $ def
-  {
+myConfig handle =
+  docks
+  $ def {
     modMask = mod1Mask
   , focusFollowsMouse = False
   , borderWidth = 2
@@ -56,10 +58,6 @@ myRemoveKeys = [ "M-<Space>"
 
 -- Add some key bindings. A lot of the keys are delegated to the modalKeys popup
 myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
-                   , ("M-j", sendMessage $ Go L)
-                   , ("M-l", sendMessage $ Go R)
-                   , ("M-i", sendMessage $ Go U)
-                   , ("M-k", sendMessage $ Go D)
 
                      -- Some multimedia keys
                    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
@@ -76,7 +74,7 @@ myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +
                ]
 
 
-myLayoutHook = maximize $ windowNavigation (avoidStruts (myGaps (Tall 1 (3/100) (1/2))))
+myLayoutHook = maximize $ avoidStruts (myGaps (Tall 1 (3/100) (1/2)))
                ||| Circle
   where myGaps = smartSpacing 7
 
