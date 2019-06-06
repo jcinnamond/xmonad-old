@@ -18,6 +18,7 @@ import ModalKeys
 -- Some colors
 colorGrey = "#666666"
 colorOrange = "#FF611A"
+colorBlue = "#415B6A"
 
 -- Run xmobar on each screen
 myPipe = spawnPipe (unwords ["xmobar"
@@ -27,7 +28,7 @@ myPipe = spawnPipe (unwords ["xmobar"
 main :: IO ()
 main = do
   handle <- myPipe
-  config <- withWindowNavigation (xK_i, xK_j, xK_k, xK_l) $ myConfig handle
+  config <- withWindowNavigation (xK_k, xK_h, xK_j, xK_l) $ myConfig handle
   xmonad config
 
 myConfig handle =
@@ -35,8 +36,8 @@ myConfig handle =
   $ def {
     modMask = mod1Mask
   , focusFollowsMouse = False
-  , borderWidth = 2
-  , focusedBorderColor = colorOrange
+  , borderWidth = 4
+  , focusedBorderColor = colorBlue
   , normalBorderColor = colorGrey
   , workspaces = fmap show [1..9]
   , layoutHook = myLayoutHook
@@ -76,6 +77,7 @@ myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +
 
 myLayoutHook = maximize $ avoidStruts (myGaps (Tall 1 (3/100) (1/2)))
                ||| Circle
+	       ||| avoidStruts (myGaps (Tall 1 (10/100) (4/5)))
   where myGaps = smartSpacing 7
 
 

@@ -109,7 +109,7 @@ appKeys = do
     , ((0, xK_t), deleteWindow w >> spawn "xterm")
     , ((0, xK_e), deleteWindow w >> spawn "emacsclient -ca emacs")
     , ((0, xK_c), deleteWindow w >> spawn "code")
-    , ((0, xK_w), deleteWindow w >> spawn "chromium")]
+    , ((0, xK_w), deleteWindow w >> spawn "firefox")]
 
 monitorKeys :: X ()
 monitorKeys = do
