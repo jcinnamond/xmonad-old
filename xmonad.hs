@@ -16,9 +16,9 @@ import XMonad.Util.Run
 import ModalKeys
 
 -- Some colors
-colorGrey = "#666666"
-colorOrange = "#FF611A"
-colorBlue = "#415B6A"
+colorGrey = "#808a87"
+colorOrange = "#f73a18"
+colorRed = "#74281a"
 
 -- Run xmobar on each screen
 myPipe = spawnPipe (unwords ["xmobar"
@@ -37,7 +37,7 @@ myConfig handle =
     modMask = mod1Mask
   , focusFollowsMouse = False
   , borderWidth = 4
-  , focusedBorderColor = colorBlue
+  , focusedBorderColor = colorRed
   , normalBorderColor = colorGrey
   , workspaces = fmap show [1..9]
   , layoutHook = myLayoutHook
