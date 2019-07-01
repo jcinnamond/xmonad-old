@@ -10,8 +10,6 @@ Config {
 		  , Run StdinReader
                   , Run Com "/bin/bash" ["-c", "~/bin/media.sh"] "media" 2
 		  , Run Com "/bin/bash" ["-c", "~/bin/getvolume.sh"] "vol" 1
-		  , Run Com "/bin/bash" ["-c", "~/bin/wifi.sh"] "wifi" 15
-		  , Run Battery ["-t", "<acstatus>: <left>%", "--", "-O", "AC", "-o", "Battery", "-l", "red"] 10
                   ]
-     , template = " %StdinReader%}{%media% | %wifi% | %battery% | %vol% | %date% "
+     , template = " %StdinReader%}{%media% | %vol% | %date% "
      }
