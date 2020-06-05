@@ -5,7 +5,7 @@ import XMonad.Actions.WindowNavigation
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Circle
-import XMonad.Layout.Maximize (maximize)
+import XMonad.Layout.Maximize (maximize, maximizeRestore)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Prompt
@@ -59,6 +59,9 @@ myRemoveKeys = [ "M-<Space>"
 
 -- Add some key bindings. A lot of the keys are delegated to the modalKeys popup
 myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
+                     -- Some quick layout shortcuts
+                   , ("M-C-l", sendMessage NextLayout)
+                   , ("M-C-x", withFocused (sendMessage . maximizeRestore))
 
                      -- Some multimedia keys
                    , ("<XF86AudioPlay>", spawn "playerctl play-pause")

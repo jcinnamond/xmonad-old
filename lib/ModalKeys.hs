@@ -92,6 +92,7 @@ modalKeys = do
     , ((0, xK_j), deleteWindow w >> withFocused (windows . sink))
     , ((0, xK_l), deleteWindow w >> spawn "flameshot gui")
     , ((0, xK_space), deleteWindow w >> appKeys)
+    , ((mod1Mask .|. controlMask, xK_space), deleteWindow w >> appKeys)
     , ((0, xK_p), deleteWindow w >> xmonadPrompt myXPConfig)
     , ((0, xK_k), deleteWindow w >> spawn "cinnamon-screensaver-command -l")
     , ((0, xK_m), deleteWindow w >> monitorKeys)
@@ -106,6 +107,7 @@ appKeys = do
                      ]
   submapDefault (deleteWindow w) . M.fromList $
     [ ((0, xK_space), deleteWindow w >> shellPrompt myXPConfig)
+    , ((mod1Mask .|. controlMask, xK_space), deleteWindow w >> shellPrompt myXPConfig)
     , ((0, xK_t), deleteWindow w >> spawn "xterm")
     , ((0, xK_e), deleteWindow w >> spawn "emacsclient -ca emacs")
     , ((0, xK_c), deleteWindow w >> spawn "code")
