@@ -101,17 +101,16 @@ modalKeys = do
 
 appKeys :: X ()
 appKeys = do
-  w <- showGuideKeys [ "[space] launcher"
+  w <- showGuideKeys [ "              [space] launcher"
                      , ""
-                     , "[t] xterm     [e] emacs     [c] code     [w] web"
+                     , "[t] xterm     [e] emacs     [w] web"
                      ]
   submapDefault (deleteWindow w) . M.fromList $
     [ ((0, xK_space), deleteWindow w >> shellPrompt myXPConfig)
     , ((mod1Mask .|. controlMask, xK_space), deleteWindow w >> shellPrompt myXPConfig)
     , ((0, xK_t), deleteWindow w >> spawn "xterm")
     , ((0, xK_e), deleteWindow w >> spawn "emacsclient -ca emacs")
-    , ((0, xK_c), deleteWindow w >> spawn "code")
-    , ((0, xK_w), deleteWindow w >> spawn "firefox")]
+    , ((0, xK_w), deleteWindow w >> spawn "firefox --new-instance --ProfileManager")]
 
 monitorKeys :: X ()
 monitorKeys = do
