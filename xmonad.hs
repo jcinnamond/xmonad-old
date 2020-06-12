@@ -50,13 +50,16 @@ myConfig handle =
   , borderWidth = 4
   , focusedBorderColor = color1
   , normalBorderColor = color8
-  , workspaces = fmap show [1..9]
+  , workspaces = myWorkspaces
   , layoutHook = myLayoutHook
   , logHook = dynamicLogWithPP $ myPP handle
   }
   `removeKeysP` myRemoveKeys
   `additionalKeysP` myAdditionalKeys
   `additionalKeys` myLegacyKeys
+
+-- Define workspaces
+myWorkspaces = ["dev", "web", "chat", "x", "y", "music", "config", "me"]
 
 -- Remove some key bindings to allow me to use Meta as the modMask without clashing with emacs too much
 myRemoveKeys = [ "M-<Space>"
@@ -84,6 +87,16 @@ myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
                    , ("<XF86MonBrightnessUp>", spawn "brightnessctl -d 'intel_backlight' set 20+")
                    , ("<XF86MonBrightnessDown>", spawn "brightnessctl -d 'intel_backlight' set 20-")
                    ]
+                   ++
+                   switchWorkspaceKeys
+
+-- Extra keybindings for switching workspaces
+switchWorkspaceKeys = [(otherModMasks ++ "M4-" ++ key, action tag)
+                      | (tag, key)  <- zip myWorkspaces homeRow
+                      , (otherModMasks, action) <- [ ("", windows . W.greedyView)
+                                                   , ("S-", windows . W.shift)]
+                      ]
+  where homeRow = ["a","s","d","f","g","j","k","l"]
 
 -- Keybindings that I haven't made work with additionalKeysP yet
 myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
