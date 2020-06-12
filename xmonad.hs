@@ -86,10 +86,10 @@ myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +
                ]
 
 
-myLayoutHook = maximize $ avoidStruts (myGaps (Tall 1 (3/100) (1/2)))
+myLayoutHook = maximize $ avoidStruts $ smartSpacing 7 $
+               Tall 1 (3/100) (1/2)
+               ||| Tall 1 (1/100) (3/4)
                ||| Circle
-	       ||| avoidStruts (myGaps (Tall 1 (10/100) (4/5)))
-  where myGaps = smartSpacing 7
 
 
 -- Configure xmobar
