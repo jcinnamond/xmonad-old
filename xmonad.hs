@@ -16,9 +16,17 @@ import XMonad.Util.Run
 import ModalKeys
 
 -- Some colors
-colorGrey = "#808a87"
-colorOrange = "#f73a18"
-colorRed = "#74281a"
+-- From: https://terminal.sexy/
+colorBg = "#1d1f21"
+colorFg = "#c5c8c6"
+
+color0 = "#282a2e"
+color8 = "#373b41"
+color1 = "#a54242"
+color3 = "#de935f"
+color6 = "#5e8d87"
+color7 = "#707880"
+color15 = "#c5c8c6"
 
 -- Run xmobar on each screen
 myPipe = spawnPipe (unwords ["xmobar"
@@ -37,8 +45,8 @@ myConfig handle =
     modMask = mod1Mask
   , focusFollowsMouse = False
   , borderWidth = 4
-  , focusedBorderColor = colorRed
-  , normalBorderColor = colorGrey
+  , focusedBorderColor = color1
+  , normalBorderColor = color8
   , workspaces = fmap show [1..9]
   , layoutHook = myLayoutHook
   , logHook = dynamicLogWithPP $ myPP handle
@@ -86,11 +94,11 @@ myLayoutHook = maximize $ avoidStruts (myGaps (Tall 1 (3/100) (1/2)))
 
 -- Configure xmobar
 myPP h = xmobarPP { ppOutput = hPutStrLn h
-                  , ppCurrent = xmobarColor colorOrange ""
-                  , ppHidden = xmobarColor "white" ""
-                  , ppVisible = xmobarColor colorOrange ""
-                  , ppHiddenNoWindows = xmobarColor colorGrey ""
-                  , ppTitle = xmobarColor "white" ""
+                  , ppCurrent = xmobarColor color3 ""
+                  , ppHidden = xmobarColor color7 ""
+                  , ppVisible = xmobarColor color3 ""
+                  , ppHiddenNoWindows = xmobarColor color8 ""
+                  , ppTitle = xmobarColor colorFg ""
                   , ppLayout = \_ -> ""
-                  , ppSep = " | "
+                  , ppSep = "   <fc=#707880>|||</fc>   "
                   }
