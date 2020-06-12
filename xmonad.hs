@@ -1,13 +1,16 @@
 {-# OPTIONS_GHC -fno-warn-type-defaults #-}
 
 import XMonad
+import XMonad.Actions.Promote (promote)
 import XMonad.Actions.WindowNavigation
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+
 import XMonad.Layout.Circle
 import XMonad.Layout.Maximize (maximize, maximizeRestore)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
+
 import XMonad.Prompt
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig(additionalKeysP, removeKeysP, additionalKeys)
@@ -70,6 +73,8 @@ myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
                      -- Some quick layout shortcuts
                    , ("M-C-l", sendMessage NextLayout)
                    , ("M-C-x", withFocused (sendMessage . maximizeRestore))
+                   , ("M-C-k", kill)
+                   , ("M-C-p", promote)
 
                      -- Some multimedia keys
                    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
