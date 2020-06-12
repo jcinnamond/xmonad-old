@@ -7,7 +7,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.Submap
 import XMonad.Layout.Maximize (maximizeRestore)
-import XMonad.Prompt (XPConfig, font, position, XPPosition(Bottom), height)
+import XMonad.Prompt (XPConfig, font, position, XPPosition(Top), height, bgColor, fgColor, fgHLight, bgHLight)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
 import XMonad.StackSet (current,screenDetail,sink)
@@ -122,7 +122,11 @@ monitorKeys = do
     , ((0, xK_j), deleteWindow w >> spawn "xrandr --output eDP-1 --auto")]
 
 myXPConfig :: XPConfig
-myXPConfig = def { font = "xft:Input Pro:pixelsize=30:autohint=true"
-                 , position = Bottom
-                 , height = 50
+myXPConfig = def { font = "xft:firacode:pixelsize=18:autohint=true"
+                 , position = Top
+                 , height = 30
+                 , bgColor = "#282a2e"
+                 , fgColor = "#c6c8c6"
+                 , fgHLight = "#de935f"
+                 , bgHLight = "#1d1f21"
                  }
