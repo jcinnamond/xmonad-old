@@ -116,9 +116,9 @@ monitorKeys :: X ()
 monitorKeys = do
   w <- showGuideKeys [ "[m] single monitor   [f] mirror external   [j] mirror laptop" ]
   submapDefault (deleteWindow w) . M.fromList $
-    [ ((0, xK_m), deleteWindow w >> spawn "~/bin/sort_out_monitors.sh")
-    , ((0, xK_f), deleteWindow w >> spawn "xrandr --output eDP-1 --auto --same-as DP-1 --scale-from 2560x1440")
-    , ((0, xK_j), deleteWindow w >> spawn "xrandr --output eDP-1 --auto")]
+    [ ((0, xK_m), deleteWindow w >> spawn "xrandr --output eDP-1-1 --off --output DP-1-3 --auto")
+    , ((0, xK_f), deleteWindow w >> spawn "xrandr --output eDP-1-1 --auto --same-as DP-1-3 --scale-from 2560x1440")
+    , ((0, xK_j), deleteWindow w >> spawn "xrandr --output eDP-1-1 --auto")]
 
 myXPConfig :: XPConfig
 myXPConfig = def { font = "xft:firacode:pixelsize=18:autohint=true"
