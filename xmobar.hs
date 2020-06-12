@@ -1,15 +1,16 @@
 Config {
-     font = "xft:Input Mono:size=12:antialias=true"
-     , borderColor = "#b4b1b0"
+     font = "xft:Noto Sans Mono:size=10:antialias=true"
+     , borderColor = "#707880"
      , border = BottomB
-     , bgColor = "#020202"
-     , fgColor = "#b4b1b0"
+     , bgColor = "#282a2e"
+     , fgColor = "#c5c8c6"
      , position = Top
      , pickBroadest = True
      , commands = [ Run Date "%A %_d %B %H:%M" "date" 60
 		  , Run StdinReader
-                  , Run Com "/bin/bash" ["-c", "~/bin/media.sh"] "media" 2
-		  , Run Com "/bin/bash" ["-c", "~/bin/getvolume.sh"] "vol" 1
+                  , Run Com "/bin/bash" ["-c", "~/bin/media"] "media" 2
+                  , Run Com "/bin/bash" ["-c", "~/bin/volume"] "vol" 1
+                  , Run Com "/bin/bash" ["-c", "~/bin/battery"] "bat" 1
                   ]
-     , template = " %StdinReader%}{%media% | %vol% | %date% "
+     , template = " %StdinReader%}{%media%%vol%%bat%%date% "
      }
