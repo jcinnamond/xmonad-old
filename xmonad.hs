@@ -22,7 +22,7 @@ colorRed = "#74281a"
 
 -- Run xmobar on each screen
 myPipe = spawnPipe (unwords ["xmobar"
-                            , "/home/jc/.xmonad/xmobar.hs"
+                            , "~/.xmonad/xmobar.hs"
                             ])
 
 main :: IO ()
