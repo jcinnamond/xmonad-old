@@ -2,6 +2,7 @@
 
 import XMonad
 import XMonad.Actions.CycleWS (nextWS, prevWS)
+import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace, renameWorkspace)
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.WindowNavigation
 import XMonad.Hooks.DynamicLog
@@ -35,6 +36,9 @@ color6 = "#5e8d87"
 color7 = "#707880"
 color15 = "#c5c8c6"
 
+colorMenuBackground = "#384d5d" -- darkened blue for menus
+colorMenuSelectionBackground = "#24323d" -- darkened blue for current menu item
+
 -- Run xmobar on each screen
 myPipe = spawnPipe (unwords ["xmobar"
                             , "~/.xmonad/xmobar.hs"
@@ -56,7 +60,7 @@ myConfig handle =
   , normalBorderColor = color8
   , workspaces = myWorkspaces
   , layoutHook = myLayoutHook
-  , logHook = dynamicLogWithPP $ myPP handle
+  , logHook = dynamicLogWithPP $ myXmobarPP handle
   , manageHook = namedScratchpadManageHook myScratchpads
   }
   `removeKeysP` myRemoveKeys
@@ -103,6 +107,11 @@ myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
                    , ("M4-<Space>", namedScratchpadAction myScratchpads "todo")
                    , ("C-M4-<Space>", namedScratchpadAction myScratchpads "journal")
 
+                   -- Dynamic workspaces
+                   , ("M4-w", addWorkspacePrompt myDwPP)
+                   , ("M4-x", removeEmptyWorkspace)
+                   , ("M4-n", renameWorkspace myDwPP)
+
                      -- Some multimedia keys
                    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
                    , ("<XF86AudioPrev>", spawn "playerctl previous")
@@ -135,13 +144,23 @@ myLayoutHook = maximize $ avoidStruts $ smartSpacing 7 $
 
 
 -- Configure xmobar
-myPP h = xmobarPP { ppOutput = hPutStrLn h
-                  , ppCurrent = xmobarColor color3 ""
-                  , ppHidden = xmobarColor color7 "" . noScratchpads
-                  , ppVisible = xmobarColor color3 ""
-                  , ppHiddenNoWindows = xmobarColor color8 "" . noScratchpads
-                  , ppTitle = xmobarColor colorFg ""
-                  , ppLayout = \_ -> ""
-                  , ppSep = "   <fc=#707880>|||</fc>   "
+myXmobarPP h = xmobarPP { ppOutput = hPutStrLn h
+                        , ppCurrent = xmobarColor color3 ""
+                        , ppHidden = xmobarColor color7 "" . noScratchpads
+                        , ppVisible = xmobarColor color3 ""
+                        , ppHiddenNoWindows = xmobarColor color8 "" . noScratchpads
+                        , ppTitle = xmobarColor colorFg ""
+                        , ppLayout = \_ -> ""
+                        , ppSep = "   <fc=#707880>|||</fc>   "
                   }
   where noScratchpads ws = if ws == "NSP" then "" else ws
+
+-- Configure prompt used by dynamic workspaces
+myDwPP = def { font = "xft:firacode:pixelsize=18:autohint=true"
+             , position = Top
+             , height = 30
+             , bgColor = colorMenuBackground
+             , fgColor = colorFg
+             , fgHLight = color3
+             , bgHLight = colorMenuSelectionBackground
+             }
