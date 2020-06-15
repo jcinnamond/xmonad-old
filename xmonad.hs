@@ -63,7 +63,7 @@ myConfig handle =
   `additionalKeys` myLegacyKeys
 
 -- Define workspaces
-myWorkspaces = ["dev", "web", "chat", "x", "y", "music", "config", "me"]
+myWorkspaces = ["dev", "web", "chat", "x", "y", "config", "me", "music"]
 
 -- Define scratchpads
 myScratchpads =
