@@ -1,6 +1,7 @@
 {-# OPTIONS_GHC -fno-warn-type-defaults #-}
 
 import XMonad
+import XMonad.Actions.CycleWS (nextWS, prevWS)
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.WindowNavigation
 import XMonad.Hooks.DynamicLog
@@ -92,6 +93,11 @@ myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
                    , ("M-C-x", withFocused (sendMessage . maximizeRestore))
                    , ("M-C-k", kill)
                    , ("M-C-p", promote)
+
+                   -- Cycle between windows and workspaces
+                   , ("M-C-S-s", windows W.focusDown)
+                   , ("M-C-S-j", prevWS)
+                   , ("M-C-S-k", nextWS)
 
                    -- Scratchpads
                    , ("M4-<Space>", namedScratchpadAction myScratchpads "todo")
