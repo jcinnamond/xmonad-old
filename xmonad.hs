@@ -67,9 +67,12 @@ myWorkspaces = ["dev", "web", "chat", "x", "y", "music", "config", "me"]
 
 -- Define scratchpads
 myScratchpads =
-  [NS "todo" "~/bin/emacsclient -a='' -nc --frame-parameters='((name . \"emacstodo\"))' ~/todo.org"
-       (title =? "emacstodo")
-       (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+  [ NS "todo" "~/bin/emacsclient -a='' -nc --frame-parameters='((name . \"emacstodo\"))' ~/todo.org"
+    (title =? "emacstodo")
+    (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+  , NS "journal" "~/bin/emacsclient -a='' -nc --frame-parameters='((name . \"emacsjournal\"))' --eval '(org-journal-new-entry nil)'"
+    (title =? "emacsjournal")
+    (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
   ]
 
 -- Remove some key bindings to allow me to use Meta as the modMask without clashing with emacs too much
@@ -89,7 +92,10 @@ myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
                    , ("M-C-x", withFocused (sendMessage . maximizeRestore))
                    , ("M-C-k", kill)
                    , ("M-C-p", promote)
+
+                   -- Scratchpads
                    , ("M4-<Space>", namedScratchpadAction myScratchpads "todo")
+                   , ("C-M4-<Space>", namedScratchpadAction myScratchpads "journal")
 
                      -- Some multimedia keys
                    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
