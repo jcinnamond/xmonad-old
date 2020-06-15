@@ -131,10 +131,11 @@ myLayoutHook = maximize $ avoidStruts $ smartSpacing 7 $
 -- Configure xmobar
 myPP h = xmobarPP { ppOutput = hPutStrLn h
                   , ppCurrent = xmobarColor color3 ""
-                  , ppHidden = xmobarColor color7 ""
+                  , ppHidden = xmobarColor color7 "" . noScratchpads
                   , ppVisible = xmobarColor color3 ""
-                  , ppHiddenNoWindows = xmobarColor color8 ""
+                  , ppHiddenNoWindows = xmobarColor color8 "" . noScratchpads
                   , ppTitle = xmobarColor colorFg ""
                   , ppLayout = \_ -> ""
                   , ppSep = "   <fc=#707880>|||</fc>   "
                   }
+  where noScratchpads ws = if ws == "NSP" then "" else ws
