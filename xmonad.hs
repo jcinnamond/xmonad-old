@@ -137,7 +137,7 @@ myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +
                ]
 
 
-myLayoutHook = maximize $ avoidStruts $ smartSpacing 7 $
+myLayoutHook = maximize $ avoidStruts $ spacingRaw True (Border 0 0 0 0) False (Border 7 7 7 7) True $
                Tall 1 (3/100) (1/2)
                ||| Tall 1 (1/100) (3/4)
                ||| Circle
