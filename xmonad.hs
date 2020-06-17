@@ -150,14 +150,14 @@ myXmobarPP h = xmobarPP { ppOutput = hPutStrLn h
                         , ppVisible = xmobarColor color3 ""
                         , ppHiddenNoWindows = xmobarColor color8 "" . noScratchpads
                         , ppTitle = xmobarColor colorFg ""
-                        , ppLayout = \_ -> ""
+                        -- , ppLayout = \_ -> ""
                         , ppSep = "   <fc=#707880>|||</fc>   "
                   }
   where noScratchpads ws = if ws == "NSP" then "" else ws
 
 -- Configure prompt used by dynamic workspaces
-myDwPP = def { font = "xft:firacode:pixelsize=18:autohint=true"
-             , position = Top
+myDwPP = def { font = "xft:NotoSans Nerd Font:pixelsize=18:autohint=true"
+             , position = CenteredAt 0.5 0.5
              , height = 30
              , bgColor = colorMenuBackground
              , fgColor = colorFg
