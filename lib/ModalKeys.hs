@@ -1,5 +1,7 @@
 module ModalKeys (modalKeys) where
 
+import Data.Char (toLower)
+import Data.List (isInfixOf)
 import Data.Map as M
 import GHC.Int (Int32)
 import XMonad
@@ -7,9 +9,10 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.Submap
 import XMonad.Layout.Maximize (maximizeRestore)
-import XMonad.Prompt (XPConfig, font, position, XPPosition(Top), height, bgColor, fgColor, fgHLight, bgHLight)
+import XMonad.Prompt (XPConfig, font, position, XPPosition(Top, CenteredAt), height, bgColor, fgColor, fgHLight, bgHLight, searchPredicate, borderColor, promptBorderWidth, alwaysHighlight)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
+import XMonad.Prompt.Window
 import XMonad.StackSet (current,screenDetail,sink)
 import XMonad.Util.Font
 import XMonad.Util.XUtils
@@ -94,6 +97,7 @@ modalKeys = do
     , ((0, xK_space), deleteWindow w >> appKeys)
     , ((mod1Mask .|. controlMask, xK_space), deleteWindow w >> appKeys)
     , ((0, xK_p), deleteWindow w >> xmonadPrompt myXPConfig)
+    , ((0, xK_w), deleteWindow w >> windowPrompt myXPConfig { searchPredicate = matchString  } Goto allWindows)
     , ((0, xK_k), deleteWindow w >> spawn "cinnamon-screensaver-command -l")
     , ((0, xK_m), deleteWindow w >> monitorKeys)
     , ((0, xK_q), restart "xmonad" True)
@@ -121,11 +125,18 @@ monitorKeys = do
     , ((0, xK_j), deleteWindow w >> spawn "xrandr --output eDP-1-1 --auto")]
 
 myXPConfig :: XPConfig
-myXPConfig = def { font = "xft:firacode:pixelsize=18:autohint=true"
-                 , position = Top
+myXPConfig = def { font = "xft:NotoSans Nerd Font:pixelsize=18:antialias=true:hinting=true"
+                 , position = CenteredAt 0.5 0.5
                  , height = 30
-                 , bgColor = "#282a2e"
-                 , fgColor = "#c6c8c6"
+                 , bgColor = "#384d5d"
+                 , fgColor = "#c5c8c6"
                  , fgHLight = "#de935f"
-                 , bgHLight = "#1d1f21"
+                 , bgHLight = "#24323d"
+                 , borderColor = "#24323d"
+                 , promptBorderWidth = 3
+                 , alwaysHighlight = True
                  }
+
+matchString :: [Char] -> [Char] -> Bool
+matchString x y = isInfixOf (lowercase x) (lowercase y)
+  where lowercase = Prelude.map toLower
