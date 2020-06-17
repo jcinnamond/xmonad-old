@@ -121,6 +121,7 @@ myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
                    , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
                    , ("<XF86MonBrightnessUp>", spawn "brightnessctl -d 'intel_backlight' set 20+")
                    , ("<XF86MonBrightnessDown>", spawn "brightnessctl -d 'intel_backlight' set 20-")
+                   , ("M4-m", spawn "~/bin/change_source")
                    ]
                    ++
                    switchWorkspaceKeys
