@@ -9,11 +9,13 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 
 import XMonad.Layout.Circle
+import XMonad.Layout.IfMax
 import XMonad.Layout.Maximize (maximize, maximizeRestore)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 
 import XMonad.Prompt
+
 import qualified XMonad.StackSet as W
 import XMonad.ManageHook
 
@@ -137,10 +139,10 @@ myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +
                ]
 
 
-myLayoutHook = maximize $ avoidStruts $ spacingRaw True (Border 0 0 0 0) False (Border 7 7 7 7) True $
+myLayoutHook = maximize $ avoidStruts $ spaceWindows $
                Tall 1 (3/100) (1/2)
-               ||| Tall 1 (1/100) (3/4)
-               ||| Circle
+               ||| IfMax 1 Circle (Tall 1 (1/100) (1/2))
+  where spaceWindows = spacingRaw True (Border 0 0 0 0) False (Border 7 7 7 7) True
 
 
 -- Configure xmobar
