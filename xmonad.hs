@@ -5,7 +5,9 @@ import XMonad.Actions.CycleWS (nextWS, prevWS)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace, renameWorkspace)
 import XMonad.Actions.Promote (promote)
 import XMonad.Actions.WindowNavigation
+
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.ManageDocks
 
 import XMonad.Layout.Circle
@@ -63,12 +65,16 @@ myConfig handle =
   , normalBorderColor = color8
   , workspaces = myWorkspaces
   , layoutHook = myLayoutHook
-  , logHook = dynamicLogWithPP $ myXmobarPP handle
+  , logHook = (fadeWindowsLogHook myFadeHook) >> (dynamicLogWithPP $ myXmobarPP handle)
+  , handleEventHook = fadeWindowsEventHook
   , manageHook = namedScratchpadManageHook myScratchpads
   }
   `removeKeysP` myRemoveKeys
   `additionalKeysP` myAdditionalKeys
   `additionalKeys` myLegacyKeys
+
+-- Window fading
+myFadeHook = composeAll [isUnfocused --> transparency 0.35]
 
 -- Define workspaces
 myWorkspaces = ["dev", "web", "chat", "x", "y", "config", "me", "music"]
