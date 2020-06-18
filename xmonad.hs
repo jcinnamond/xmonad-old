@@ -114,7 +114,7 @@ myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
                    , ("M4-x", removeEmptyWorkspace)
                    , ("M4-n", renameWorkspace myDwPP)
 
-                     -- Some multimedia keys
+                   -- Some multimedia keys
                    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
                    , ("<XF86AudioPrev>", spawn "playerctl previous")
                    , ("<XF86AudioNext>", spawn "playerctl next")
@@ -122,6 +122,9 @@ myAdditionalKeys = [ ("M-C-<Space>", modalKeys)
                    , ("<XF86MonBrightnessUp>", spawn "brightnessctl -d 'intel_backlight' set 20+")
                    , ("<XF86MonBrightnessDown>", spawn "brightnessctl -d 'intel_backlight' set 20-")
                    , ("M4-m", spawn "~/bin/change_source")
+
+                   -- OS commands
+                   , ("M4-z", spawn "systemctl suspend")
                    ]
                    ++
                    switchWorkspaceKeys
