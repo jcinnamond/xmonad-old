@@ -12,6 +12,7 @@ import XMonad.Layout.Circle
 import XMonad.Layout.IfMax
 import XMonad.Layout.Maximize (maximize, maximizeRestore)
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed (renamed, Rename(Replace))
 import XMonad.Layout.Spacing
 
 import XMonad.Prompt
@@ -144,8 +145,8 @@ myLegacyKeys = [ ((0, 0x1008FF13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +
 
 
 myLayoutHook = maximize $ avoidStruts $ spaceWindows $
-               Tall 1 (3/100) (1/2)
-               ||| IfMax 1 Circle (Tall 1 (1/100) (1/2))
+               renamed [Replace "split"] (Tall 1 (3/100) (1/2))
+               ||| renamed [Replace "focus"] (IfMax 1 Circle (Tall 4 (1/100) (1/3)))
   where spaceWindows = spacingRaw True (Border 0 0 0 0) False (Border 7 7 7 7) True
 
 
