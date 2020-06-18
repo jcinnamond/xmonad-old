@@ -16,5 +16,5 @@ Config {
                   , Run Com "/bin/bash" ["-c", "~/bin/volume"] "vol" 1
                   , Run Com "/bin/sh" ["-c", "~/bin/current_source"] "mic" 1
                   ]
-     , template = " %StdinReader%}{%mic%%media%%vol%%battery%   <fc=#707880>|||</fc>  %date% "
+     , template = "  %StdinReader%}{%mic%%media%%vol%%battery%   <fc=#707880></fc>  %date%  "
      }
