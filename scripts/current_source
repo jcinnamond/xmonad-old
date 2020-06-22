@@ -1,0 +1,7 @@
+#!/usr/bin/fish
+
+source (dirname (status --current-filename))/separator
+
+set default_device (pacmd list-sources | grep -e "index:" -e "name:" -e "product.name" | grep -A2 "*" | tail -1 | cut -d"=" -f2 | tr -d '" ')
+
+echo " $default_device$separator"

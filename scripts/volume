@@ -1,0 +1,12 @@
+#!/usr/bin/fish
+
+source (dirname (status --current-filename))/separator
+
+set playback (amixer sget Master | grep "Playback")
+
+if echo $playback | grep -qF "[off]"
+    echo "<fc=#81a2be>婢 </fc>$separator"
+else
+    set volume (echo $playback | grep -F "[on]" | sed 's/.*\[\([[:digit:]]\+%\)\].*/\1/')
+    echo "<fc=#707880> </fc> <fc=#81a2be>$volume</fc>$separator"
+end

@@ -1,0 +1,17 @@
+#!/usr/bin/fish
+
+source (dirname (status --current-filename))/separator
+
+set play_status (playerctl -p spotify status 2> /dev/null)
+set artist (playerctl -p spotify metadata artist 2> /dev/null)
+set title (playerctl -p spotify metadata title 2> /dev/null)
+
+set summary "$artist / $title"
+
+if [ -z "$play_status" ]
+    echo
+else if [ "$play_status" = "Paused" ]
+    echo "<fc=#707880> $summary</fc>$separator"
+else
+    echo " $summary$separator"
+end

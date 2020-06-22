@@ -1,0 +1,12 @@
+#!/usr/bin/fish
+
+set default_device (pacmd list-sources | grep -e "index:" -e "name:" | grep -A1 "*" | tail -1 | cut -d: -f2 | tr -d ' ')
+set all_devices (pacmd list-sources | grep -e "index:" -e "name:" | grep "usb-")
+
+for d in $all_devices
+    echo $d | grep -q $default_device
+    if test $status -ne 0
+        set new_dev (echo $d | cut -d: -f2 | tr -d ' <>')
+        pacmd set-default-source $new_dev
+    end
+end
